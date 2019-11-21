@@ -30,6 +30,9 @@ namespace BikeRentalAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Bike Rental API", Version = "v1" });
             });
+
+            services.AddControllers().AddNewtonsoftJson(settings =>
+                settings.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
