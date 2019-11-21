@@ -21,8 +21,8 @@ namespace BikeRentalAPI.Controllers
         }
 
         // GET: api/Bikes
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Bike>>> GetBike([FromQuery] string sortString)
+        [HttpGet("/active")]
+        public async Task<ActionResult<IEnumerable<Bike>>> GetBikeActive([FromQuery] string sortString)
         {
             List<Bike> bikes = await _context.Bike
                 .Where(b => b.Rentals == null || b.Rentals.Count == 0 || b.Rentals.Last().End == DateTime.MaxValue)
@@ -48,6 +48,12 @@ namespace BikeRentalAPI.Controllers
             {
                 return BadRequest("The sortString is not valid!");
             }
+        }
+
+        [HttpGet("")]
+        public async Task<ActionResult<IEnumerable<Bike>>> GetBike()
+        {
+            return await _context.Bike.ToListAsync();
         }
 
         // PUT: api/Bikes/5

@@ -135,6 +135,12 @@ namespace BikeRentalAPI.Controllers
             return Ok(rentalsJSON);
         }
 
+        [HttpGet("")]
+        public async Task<ActionResult<IEnumerable<Rental>>> GetRentals()
+        {
+            return await _context.Rental.ToListAsync();
+        }
+
         private bool RentalExists(int id)
         {
             return _context.Rental.Any(e => e.ID == id);
